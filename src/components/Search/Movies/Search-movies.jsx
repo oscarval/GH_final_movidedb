@@ -3,7 +3,12 @@ import { connect } from "react-redux";
 import ApiRequest from "../../../services/moviedb/Api-request";
 import "./Search-movies.scss";
 
-function SearchMovies(props) {
+/**
+ * SearchMovies Component
+ * Form to search movie by title, original title, overview
+ * @param {*} props 
+ */
+const SearchMovies = (props) => {
   const searchMovie = () => {
     props.searchMovie("batman");
   };
@@ -13,7 +18,7 @@ function SearchMovies(props) {
       <button onClick={searchMovie}>click me</button>
     </div>
   );
-}
+};
 
 const mapStateToProps = (state) => ({ state: state });
 
