@@ -1,28 +1,10 @@
 import React from "react";
-import { connect } from "react-redux";
-import ApiRequest from "./services/moviedb/Api-request";
+import "bootstrap/dist/css/bootstrap.min.css";
 import "./App.scss";
+// Routes
+import Routes from "./router/Router";
 
 function App(props) {
-  const searchMovie = () => {
-    props.searchMovie("batman");
-  };
-
-  return (
-    <div className='App'>
-      <button onClick={searchMovie}>click me</button>
-    </div>
-  );
+  return <Routes />;
 }
-
-const mapStateToProps = (state) => ({ state: state });
-
-const mapDispacthToProps = (dispatch) => ({
-  searchMovie: (stringSearch) => {
-    ApiRequest.Movies.Search(stringSearch)(dispatch);
-  },
-});
-
-const connectedApp = connect(mapStateToProps, mapDispacthToProps)(App);
-
-export default connectedApp;
+export default App;
