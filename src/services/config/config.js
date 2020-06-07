@@ -1,3 +1,9 @@
+/**
+ * Config Object to ApiRequest
+ * Configurations by request of api
+ * Actions types
+ * Credentials
+ */
 const Config = {
   ApiRequest: {
     credentials: {

@@ -1,6 +1,11 @@
 import Config from "../config/config";
 const initialErrorsState = [];
 
+/**
+ * Reducer Services
+ * @param {*} state 
+ * @param {*} param1 
+ */
 const reducer = (state = initialErrorsState, { type, payload }) => {
   switch (type) {
     case Config.ApiRequest.actionsTypes.ERROR_SEARCH:
