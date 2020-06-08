@@ -1,5 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
+import "./Header.scss";
+// Bootstrap
 import Navbar from "react-bootstrap/Navbar";
 import Nav from "react-bootstrap/Nav";
 
@@ -10,7 +12,7 @@ import Nav from "react-bootstrap/Nav";
 const Header = () => {
   return (
     <header className='Header'>
-      <Navbar collapseOnSelect expand='lg' bg='dark' variant='dark'>
+      <Navbar collapseOnSelect expand='sm' bg='dark' variant='dark'>
         <Navbar.Brand as={Link} to='/'>
           GH - TheMovieDB
         </Navbar.Brand>

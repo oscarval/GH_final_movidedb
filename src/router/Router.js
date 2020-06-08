@@ -14,12 +14,14 @@ const Routes = () => {
     <BrowserRouter>
       <div>
         <Header />
-        <Switch>
-          <Route path='/' component={Home} exact />
-          <Route path='/movies' component={SearchMovies} exact />
-          <Route path='/series' component={SearchSeries} exact />
-          {/* TODO: Path to Error 404 */}
-        </Switch>
+        <div className='Main'>
+          <Switch>
+            <Route path='/' component={Home} exact />
+            <Route path='/movies' component={SearchMovies} exact />
+            {/* <Route path='/series' component={SearchSeries} exact /> */}
+            <Route component={Home} />
+          </Switch>
+        </div>
       </div>
     </BrowserRouter>
   );

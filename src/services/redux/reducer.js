@@ -3,8 +3,8 @@ const initialErrorsState = [];
 
 /**
  * Reducer Services
- * @param {*} state 
- * @param {*} param1 
+ * @param {*} state
+ * @param {*} param1
  */
 const reducer = (state = initialErrorsState, { type, payload }) => {
   switch (type) {
@@ -18,7 +18,17 @@ const reducer = (state = initialErrorsState, { type, payload }) => {
     case Config.ApiRequest.actionsTypes.SEARCH_MOVIES:
       return {
         ...state,
-        Response: payload,
+        Movies: payload,
+      };
+    case Config.ApiRequest.actionsTypes.GET_BILLBOARD:
+      return {
+        ...state,
+        Billaboard: payload,
+      };
+    case Config.ApiRequest.actionsTypes.GET_POPULARITY:
+      return {
+        ...state,
+        Popularity: payload,
       };
     default:
       return state;

@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
 import { connect } from "react-redux";
 import ApiRequest from "../../services/moviedb/Api-request";
-import "./Billboard.scss";
+import "./Popularity.scss";
 import Config from "../../services/config/config";
 // Bootstrap
 import CardColumns from "react-bootstrap/CardColumns";
@@ -10,26 +10,26 @@ import Button from "react-bootstrap/Button";
 import defaultImage from "../../assets/img/default.jpg";
 
 /**
- * Billaboard
- * Show billaboard and most popularity
+ * Popularity
+ * Show 10 most popularity
  * @param {*} props
  */
-const Billboard = (props) => {
+const Popularity = (props) => {
   const imageUrl = Config.ApiRequest.request.imageBaseUrl;
-  const billboardList = props.state.Billaboard
-    ? props.state.Billaboard.results.slice(0, 10)
+  const popularityList = props.state.Popularity
+    ? props.state.Popularity.results.slice(0, 10)
     : [];
 
   useEffect(() => {
-    props.getBillboard();
+    props.getPopularity();
   }, []);
 
   return (
-    <div className='Billaboard'>
-      <h1>Billboard</h1>
+    <div className='Popularity'>
+      <h1>10 most popularity</h1>
       <CardColumns>
-        {billboardList.map((movie, index) => (
-          <Card key={index} className='Billaboard-card'>
+        {popularityList.map((movie, index) => (
+          <Card key={index}>
             <Card.Img
               variant='top'
               src={
@@ -56,14 +56,14 @@ const Billboard = (props) => {
 
 const mapStateToProps = (state) => ({ state: state });
 const mapDispacthToProps = (dispatch) => ({
-  getBillboard: () => {
-    ApiRequest.Movies.getBillboard()(dispatch);
+  getPopularity: () => {
+    ApiRequest.Movies.getPopularity()(dispatch);
   },
 });
 
-const connectedBillboard = connect(
+const connectedPopularity = connect(
   mapStateToProps,
   mapDispacthToProps
-)(Billboard);
+)(Popularity);
 
-export default connectedBillboard;
+export default connectedPopularity;
