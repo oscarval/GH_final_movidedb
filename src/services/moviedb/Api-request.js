@@ -13,12 +13,22 @@ const ApiRequest = {
       return async (dispatch) => {
         console.log("entra dispatch. Loading");
         try {
-          const moviesResponse = await get("movie", paramSearch).then(
-            (res) => res.data
-          );
+          const moviesResponse = await axios
+            .get(`${Config.ApiRequest.request.baseURL}/search/movie`, {
+              params: {
+                ...Config.ApiRequest.request.defaultParameters,
+                query: paramSearch,
+              },
+            })
+            .then((res) => res.data);
+          console.log(moviesResponse);
+
           dispatch({
             type: Config.ApiRequest.actionsTypes.SEARCH_MOVIES,
-            payload: moviesResponse,
+            payload: {
+              response: moviesResponse,
+              textSearch: paramSearch,
+            },
           });
         } catch (err) {
           dispatch({
@@ -108,12 +118,20 @@ const ApiRequest = {
       return async (dispatch) => {
         console.log("entra dispatch. Loading");
         try {
-          const seriesResponse = await get("tv", paramSearch).then(
-            (res) => res.data
-          );
+          const seriesResponse = await axios
+            .get(`${Config.ApiRequest.request.baseURL}/search/tv`, {
+              params: {
+                ...Config.ApiRequest.request.defaultParameters,
+                query: paramSearch,
+              },
+            })
+            .then((res) => res.data);
           dispatch({
             type: Config.ApiRequest.actionsTypes.SEARCH_SERIES,
-            payload: seriesResponse,
+            payload: {
+              response: seriesResponse,
+              textSearch: paramSearch,
+            },
           });
         } catch (err) {
           dispatch({
@@ -131,18 +149,6 @@ const ApiRequest = {
       };
     },
   },
-};
-
-const get = async (searchCategory, paramSearch) => {
-  const response = await axios
-    .get(`${Config.ApiRequest.request.baseURL}/search/${searchCategory}`, {
-      params: {
-        ...Config.ApiRequest.request.defaultParameters,
-        query: paramSearch,
-      },
-    })
-    .then((res) => res.data);
-  return response;
 };
 
 export default ApiRequest;

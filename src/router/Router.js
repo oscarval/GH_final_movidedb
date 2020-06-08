@@ -4,7 +4,7 @@ import React from "react";
 import Home from "../components/Home/Home";
 import Header from "../components/Header/Header";
 import SearchMovies from "../components/Search/Movies/Search-movies";
-import SearchSeries from "../components/Search/Series/Search-series";
+// import SearchSeries from "../components/Search/Series/Search-series";
 
 /**
  * Raoutes of App
