@@ -1,0 +1,11 @@
+.Popularity {
+  .popularity-col {
+    padding: 10px;
+    text-align: center;
+    .popularity-title {
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+  }
+}

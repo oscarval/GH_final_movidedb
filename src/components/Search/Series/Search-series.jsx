@@ -5,10 +5,10 @@ import "./Search-series.scss";
 import Config from "../../../services/config/config";
 // Bootstrap
 import Form from "react-bootstrap/Form";
-import CardColumns from "react-bootstrap/CardColumns";
-import Card from "react-bootstrap/Card";
 import Button from "react-bootstrap/Button";
-import defaultImage from "../../../assets/img/default.jpg";
+import Media from "react-bootstrap/Media";
+import Badge from "react-bootstrap/Badge";
+import defaultImage from "../../../assets/img/default_poster.jpg";
 
 /**
  * SearchSerires Component
@@ -55,30 +55,46 @@ const SearchSeries = (props) => {
         </Form>
       </div>
       <div className='search-result'>
-        <CardColumns>
+        <ul className='list-unstyled'>
           {props.state.Series &&
-            props.state.Series.results.map((serie, index) => (
-              <Card key={index} className='Serie-card'>
-                <Card.Img
-                  variant='top'
-                  src={
-                    serie.backdrop_path
-                      ? `${imageUrl}/${serie.backdrop_path}`
-                      : defaultImage
-                  }
-                />
-                <Card.Body>
-                  <Card.Title>{serie.original_name}</Card.Title>
-                  <Card.Text>{serie.overview.slice(0, 150)}...</Card.Text>
-                </Card.Body>
-                <Card.Footer>
-                  <Button variant='primary' block>
-                    Show more info
-                  </Button>
-                </Card.Footer>
-              </Card>
-            ))}
-        </CardColumns>
+            props.state.Series.results.map((serie, index) => {
+              if (serie.overview && serie.overview.length > 0) {
+                return (
+                  <Media key={index} as='li' className='serie-li'>
+                    <img
+                      width={200}
+                      height={250}
+                      className='mr-3'
+                      src={
+                        serie.poster_path
+                          ? `${imageUrl}/${serie.poster_path}`
+                          : defaultImage
+                      }
+                      alt={serie.title}
+                    />
+                    <Media.Body>
+                      <h5>{serie.original_name}</h5>
+                      <p>{serie.overview.slice(0, 350)}...</p>
+                      <div className='serie-badges'>
+                        <Badge variant='secondary'>
+                          Vote: {serie.vote_average}
+                        </Badge>
+                        <Badge variant='warning'>
+                          Populatity:
+                          {parseFloat(serie.popularity / 10).toFixed(2)}
+                        </Badge>
+                      </div>
+                      <Button variant='outline-info' size='sm'>
+                        Show more info
+                      </Button>
+                    </Media.Body>
+                  </Media>
+                );
+              } else {
+                return "";
+              }
+            })}
+        </ul>
       </div>
     </div>
   );

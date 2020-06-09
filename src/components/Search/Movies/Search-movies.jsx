@@ -5,10 +5,10 @@ import "./Search-movies.scss";
 import Config from "../../../services/config/config";
 // Bootstrap
 import Form from "react-bootstrap/Form";
-import CardColumns from "react-bootstrap/CardColumns";
-import Card from "react-bootstrap/Card";
 import Button from "react-bootstrap/Button";
-import defaultImage from "../../../assets/img/default.jpg";
+import Media from "react-bootstrap/Media";
+import Badge from "react-bootstrap/Badge";
+import defaultImage from "../../../assets/img/default_poster.jpg";
 
 /**
  * SearchMovies Component
@@ -47,6 +47,7 @@ const SearchMovies = (props) => {
               value={values.textSearch}
               onChange={handleChange}
               placeholder='Search a movie'
+              autoComplete='off'
             />
             <Form.Text className='text-muted'>
               Type min 4 characters to search a movie
@@ -55,30 +56,46 @@ const SearchMovies = (props) => {
         </Form>
       </div>
       <div className='search-result'>
-        <CardColumns>
+        <ul className='list-unstyled'>
           {props.state.Movies &&
-            props.state.Movies.results.map((movie, index) => (
-              <Card key={index} className='Movie-card'>
-                <Card.Img
-                  variant='top'
-                  src={
-                    movie.backdrop_path
-                      ? `${imageUrl}/${movie.backdrop_path}`
-                      : defaultImage
-                  }
-                />
-                <Card.Body>
-                  <Card.Title>{movie.title}</Card.Title>
-                  <Card.Text>{movie.overview.slice(0, 150)}...</Card.Text>
-                </Card.Body>
-                <Card.Footer>
-                  <Button variant='primary' block>
-                    Show more info
-                  </Button>
-                </Card.Footer>
-              </Card>
-            ))}
-        </CardColumns>
+            props.state.Movies.results.map((movie, index) => {
+              if (movie.overview && movie.overview.length > 0) {
+                return (
+                  <Media key={index} as='li' className='movie-li'>
+                    <img
+                      width={200}
+                      height={250}
+                      className='mr-3'
+                      src={
+                        movie.poster_path
+                          ? `${imageUrl}/${movie.poster_path}`
+                          : defaultImage
+                      }
+                      alt={movie.title}
+                    />
+                    <Media.Body>
+                      <h5>{movie.original_title}</h5>
+                      <p>{movie.overview.slice(0, 350)}...</p>
+                      <div className='movie-badges'>
+                        <Badge variant='secondary'>
+                          Vote: {movie.vote_average}
+                        </Badge>
+                        <Badge variant='warning'>
+                          Populatity:
+                          {parseFloat(movie.popularity / 10).toFixed(2)}
+                        </Badge>
+                      </div>
+                      <Button variant='outline-info' size='sm'>
+                        Show more info
+                      </Button>
+                    </Media.Body>
+                  </Media>
+                );
+              } else {
+                return "";
+              }
+            })}
+        </ul>
       </div>
     </div>
   );
