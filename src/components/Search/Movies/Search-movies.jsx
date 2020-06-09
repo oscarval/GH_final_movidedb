@@ -1,4 +1,4 @@
-import React, { useRef, useState } from "react";
+import React, { useState } from "react";
 import { connect } from "react-redux";
 import ApiRequest from "../../../services/moviedb/Api-request";
 import "./Search-movies.scss";
@@ -12,7 +12,7 @@ import defaultImage from "../../../assets/img/default.jpg";
 
 /**
  * SearchMovies Component
- * Form to search movie by title, original title, overview
+ * Form to search movie by title, original title
  * @param {*} props
  */
 const SearchMovies = (props) => {
@@ -22,7 +22,7 @@ const SearchMovies = (props) => {
     setValues({ ...values, [name]: value });
   };
   const [values, setValues] = useState({
-    textSearch: props.state.textSearch ? props.state.textSearch : "",
+    textSearch: props.state.textSearchMovie ? props.state.textSearchMovie : "",
   });
 
   const imageUrl = Config.ApiRequest.request.imageBaseUrl;
@@ -30,8 +30,8 @@ const SearchMovies = (props) => {
   const searchMovie = (event) => {
     event.preventDefault();
     event.stopPropagation();
-    if(values.textSearch.length > 3){
-    props.searchMovie(values.textSearch);
+    if (values.textSearch.length > 3) {
+      props.searchMovie(values.textSearch);
     }
   };
 

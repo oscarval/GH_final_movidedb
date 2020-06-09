@@ -19,7 +19,13 @@ const reducer = (state = initialErrorsState, { type, payload }) => {
       return {
         ...state,
         Movies: payload.response,
-        textSearch: payload.textSearch,
+        textSearchMovie: payload.textSearch,
+      };
+    case Config.ApiRequest.actionsTypes.SEARCH_SERIES:
+      return {
+        ...state,
+        Series: payload.response,
+        textSearchSerie: payload.textSearch,
       };
     case Config.ApiRequest.actionsTypes.GET_BILLBOARD:
       return {
