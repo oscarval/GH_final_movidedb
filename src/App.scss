@@ -6,6 +6,14 @@
   background-color: #e50e14;
 }
 
+/* Loading */
+.loading {
+  display: flex;
+  flex-direction: row;
+  flex: 1;
+  justify-content: center;
+}
+
 /* Animaciones */
 .animated {
   -webkit-animation-duration: 3s;

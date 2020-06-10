@@ -10,6 +10,7 @@ import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 import Image from "react-bootstrap/Image";
 import defaultImage from "../../assets/img/default.jpg";
+import loadingImage from "../../assets/img/loading.gif";
 import StarRatings from "react-star-ratings";
 
 /**
@@ -32,39 +33,47 @@ const Billboard = (props) => {
       <h1>Billboard</h1>
       <Container fluid>
         <Row>
-          {billboardList.map((movie, index) => {
-            if (movie.backdrop_path) {
-              return (
-                <Col
-                  xs={6}
-                  sm={6}
-                  md={4}
-                  lg={2}
-                  className='billboard-col'
-                  key={index}>
-                  <Link to={`/movie/${movie.id}`}>
-                    <div className='billboard-title'>{movie.title}</div>
-                    <Image
-                      src={
-                        movie.poster_path
-                          ? `${imageUrl}/${movie.poster_path}`
-                          : defaultImage
-                      }
-                      thumbnail
-                    />
-                  </Link>
-                  <div>
-                    <StarRatings
-                      rating={movie.vote_average / 2}
-                      starDimension='20px'
-                    />
-                  </div>
-                </Col>
-              );
-            } else {
-              return "";
-            }
-          })}
+          {billboardList.length === 0 && (
+            <div className='loading'>
+              <div>
+                <img src={loadingImage} alt='loading' />
+              </div>
+            </div>
+          )}
+          {billboardList.length > 0 &&
+            billboardList.map((movie, index) => {
+              if (movie.backdrop_path) {
+                return (
+                  <Col
+                    xs={6}
+                    sm={6}
+                    md={4}
+                    lg={2}
+                    className='billboard-col'
+                    key={index}>
+                    <Link to={`/movie/${movie.id}`}>
+                      <div className='billboard-title'>{movie.title}</div>
+                      <Image
+                        src={
+                          movie.poster_path
+                            ? `${imageUrl}/${movie.poster_path}`
+                            : defaultImage
+                        }
+                        thumbnail
+                      />
+                    </Link>
+                    <div>
+                      <StarRatings
+                        rating={movie.vote_average / 2}
+                        starDimension='20px'
+                      />
+                    </div>
+                  </Col>
+                );
+              } else {
+                return "";
+              }
+            })}
         </Row>
       </Container>
     </div>

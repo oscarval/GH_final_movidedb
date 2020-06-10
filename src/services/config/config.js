@@ -22,6 +22,7 @@ const Config = {
       GET_POPULARITY: "GET_POPULARITY",
       GET_BILLBOARD: "GET_BILLBOARD",
       GET_MOVIE: "GET_MOVIE",
+      GET_SERIE: "GET_SERIE",
       ERROR_SEARCH: "ERROR_SEARCH",
     },
   },

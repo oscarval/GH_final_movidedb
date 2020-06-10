@@ -6,6 +6,7 @@ import ApiRequest from "../../services/moviedb/Api-request";
 import Config from "../../services/config/config";
 import StarRatings from "react-star-ratings";
 import Button from "react-bootstrap/Button";
+import loadingImage from "../../assets/img/loading.gif";
 
 const Movie = (props) => {
   const imageUrl = Config.ApiRequest.request.backgroundBaseUrl;
@@ -22,6 +23,13 @@ const Movie = (props) => {
 
   return (
     <div className='Movie'>
+      {!movie && (
+        <div className='loading'>
+          <div>
+            <img src={loadingImage} alt='loading' />
+          </div>
+        </div>
+      )}
       {movie && (
         <div className='movie-container animated fast fadeIn'>
           <div
@@ -50,6 +58,16 @@ const Movie = (props) => {
               <div className='movie-item'>
                 <div className='movie-label'>Release date</div>
                 <div className='movie-text'>{movie.release_date}</div>
+              </div>
+              <div className='movie-item'>
+                <div className='movie-label'>Genres</div>
+                <div className='movie-text'>
+                  {movie.genres
+                    .map((el) => {
+                      return el.name;
+                    })
+                    .join(", ")}
+                </div>
               </div>
               <div className='movie-item'>
                 <div className='movie-label'>Votes</div>

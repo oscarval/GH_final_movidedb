@@ -9,6 +9,7 @@ import Button from "react-bootstrap/Button";
 import Media from "react-bootstrap/Media";
 import Badge from "react-bootstrap/Badge";
 import defaultImage from "../../../assets/img/default_poster.jpg";
+import loadingImage from "../../../assets/img/loading.gif";
 import { Link } from "react-router-dom";
 
 /**
@@ -58,7 +59,15 @@ const SearchMovies = (props) => {
       </div>
       <div className='search-result'>
         <ul className='list-unstyled'>
-          {props.state.Movies &&
+          {props.state.loading && (
+            <div className='loading'>
+              <div>
+                <img src={loadingImage} alt='loading' />
+              </div>
+            </div>
+          )}
+          {!props.state.loading &&
+            props.state.Movies &&
             props.state.Movies.results.map((movie, index) => {
               if (movie.overview && movie.overview.length > 0) {
                 return (

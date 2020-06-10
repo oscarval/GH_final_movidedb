@@ -2,6 +2,7 @@ import axios from "axios";
 import Config from "../config/config";
 import moment from "moment";
 
+const TIMEOUT = 500;
 /**
  * ApiRequest Services
  * Movies functionality
@@ -11,7 +12,7 @@ const ApiRequest = {
   Movies: {
     Search: (paramSearch) => {
       return async (dispatch) => {
-        console.log("entra dispatch. Loading");
+        setLoading(Config.ApiRequest.actionsTypes.SEARCH_MOVIES, dispatch);
         try {
           const moviesResponse = await axios
             .get(`${Config.ApiRequest.request.baseURL}/search/movie`, {
@@ -21,15 +22,15 @@ const ApiRequest = {
               },
             })
             .then((res) => res.data);
-          console.log(moviesResponse);
-
-          dispatch({
-            type: Config.ApiRequest.actionsTypes.SEARCH_MOVIES,
-            payload: {
-              response: moviesResponse,
-              textSearch: paramSearch,
-            },
-          });
+          setTimeout(() => {
+            dispatch({
+              type: Config.ApiRequest.actionsTypes.SEARCH_MOVIES,
+              payload: {
+                response: moviesResponse,
+                textSearch: paramSearch,
+              },
+            });
+          }, TIMEOUT);
         } catch (err) {
           dispatch({
             type: Config.ApiRequest.actionsTypes.ERROR_SEARCH,
@@ -40,14 +41,12 @@ const ApiRequest = {
               },
             ],
           });
-        } finally {
-          console.log("hide loading");
         }
       };
     },
     getPopularity: () => {
       return async (dispatch) => {
-        console.log("entra dispatch. Loading");
+        setLoading(Config.ApiRequest.actionsTypes.GET_POPULARITY, dispatch);
         try {
           const moviesResponse = await axios
             .get(`${Config.ApiRequest.request.baseURL}/discover/movie`, {
@@ -56,11 +55,14 @@ const ApiRequest = {
               },
             })
             .then((res) => res.data);
-          console.log(moviesResponse);
-          dispatch({
-            type: Config.ApiRequest.actionsTypes.GET_POPULARITY,
-            payload: moviesResponse,
-          });
+          setTimeout(() => {
+            dispatch({
+              type: Config.ApiRequest.actionsTypes.GET_POPULARITY,
+              payload: {
+                response: moviesResponse,
+              },
+            });
+          }, TIMEOUT);
         } catch (err) {
           dispatch({
             type: Config.ApiRequest.actionsTypes.ERROR_SEARCH,
@@ -71,13 +73,12 @@ const ApiRequest = {
               },
             ],
           });
-        } finally {
-          console.log("hide loading");
         }
       };
     },
     getBillboard: () => {
       return async (dispatch) => {
+        setLoading(Config.ApiRequest.actionsTypes.GET_BILLBOARD, dispatch);
         const date1 = moment().subtract(10, "days");
         const date2 = moment().subtract(1, "days");
         let dateIni = date1.format("YYYY-MM-DD");
@@ -92,11 +93,14 @@ const ApiRequest = {
               },
             })
             .then((res) => res.data);
-          console.log(moviesResponse);
-          dispatch({
-            type: Config.ApiRequest.actionsTypes.GET_BILLBOARD,
-            payload: moviesResponse,
-          });
+          setTimeout(() => {
+            dispatch({
+              type: Config.ApiRequest.actionsTypes.GET_BILLBOARD,
+              payload: {
+                response: moviesResponse,
+              },
+            });
+          }, TIMEOUT);
         } catch (err) {
           dispatch({
             type: Config.ApiRequest.actionsTypes.ERROR_SEARCH,
@@ -107,13 +111,12 @@ const ApiRequest = {
               },
             ],
           });
-        } finally {
-          console.log("hide loading");
         }
       };
     },
     getMovie: (idMovie) => {
       return async (dispatch) => {
+        setLoading(Config.ApiRequest.actionsTypes.GET_MOVIE, dispatch);
         try {
           const movieResponse = await axios
             .get(`${Config.ApiRequest.request.baseURL}/movie/${idMovie}`, {
@@ -122,11 +125,14 @@ const ApiRequest = {
               },
             })
             .then((res) => res.data);
-          console.log(movieResponse);
-          dispatch({
-            type: Config.ApiRequest.actionsTypes.GET_MOVIE,
-            payload: movieResponse,
-          });
+          setTimeout(() => {
+            dispatch({
+              type: Config.ApiRequest.actionsTypes.GET_MOVIE,
+              payload: {
+                response: movieResponse,
+              },
+            });
+          }, TIMEOUT);
         } catch (err) {
           dispatch({
             type: Config.ApiRequest.actionsTypes.ERROR_SEARCH,
@@ -137,8 +143,6 @@ const ApiRequest = {
               },
             ],
           });
-        } finally {
-          console.log("hide loading");
         }
       };
     },
@@ -146,7 +150,7 @@ const ApiRequest = {
   Series: {
     Search: (paramSearch) => {
       return async (dispatch) => {
-        console.log("entra dispatch. Loading");
+        setLoading(Config.ApiRequest.actionsTypes.SEARCH_SERIES, dispatch);
         try {
           const seriesResponse = await axios
             .get(`${Config.ApiRequest.request.baseURL}/search/tv`, {
@@ -156,13 +160,15 @@ const ApiRequest = {
               },
             })
             .then((res) => res.data);
-          dispatch({
-            type: Config.ApiRequest.actionsTypes.SEARCH_SERIES,
-            payload: {
-              response: seriesResponse,
-              textSearch: paramSearch,
-            },
-          });
+          setTimeout(() => {
+            dispatch({
+              type: Config.ApiRequest.actionsTypes.SEARCH_SERIES,
+              payload: {
+                response: seriesResponse,
+                textSearch: paramSearch,
+              },
+            });
+          }, TIMEOUT);
         } catch (err) {
           dispatch({
             type: Config.ApiRequest.actionsTypes.ERROR_SEARCH,
@@ -173,12 +179,52 @@ const ApiRequest = {
               },
             ],
           });
-        } finally {
-          console.log("hide loading");
+        }
+      };
+    },
+    getSerie: (idSerie) => {
+      return async (dispatch) => {
+        setLoading(Config.ApiRequest.actionsTypes.GET_SERIE, dispatch);
+        try {
+          const movieResponse = await axios
+            .get(`${Config.ApiRequest.request.baseURL}/tv/${idSerie}`, {
+              params: {
+                ...Config.ApiRequest.request.defaultParameters,
+              },
+            })
+            .then((res) => res.data);
+          setTimeout(() => {
+            dispatch({
+              type: Config.ApiRequest.actionsTypes.GET_SERIE,
+              payload: {
+                response: movieResponse,
+              },
+            });
+          }, TIMEOUT);
+        } catch (err) {
+          dispatch({
+            type: Config.ApiRequest.actionsTypes.ERROR_SEARCH,
+            payload: [
+              {
+                code: -1,
+                message: err.message,
+              },
+            ],
+          });
         }
       };
     },
   },
+};
+
+const setLoading = (action, dispatch) => {
+  dispatch({
+    type: action,
+    payload: {
+      response: null,
+      textSearch: "",
+    },
+  });
 };
 
 export default ApiRequest;
