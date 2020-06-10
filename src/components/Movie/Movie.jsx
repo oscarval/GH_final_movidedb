@@ -5,13 +5,16 @@ import "./Movie.scss";
 import ApiRequest from "../../services/moviedb/Api-request";
 import Config from "../../services/config/config";
 import StarRatings from "react-star-ratings";
-import Image from "react-bootstrap/Image";
-import defaultImage from "../../assets/img/default.jpg";
+import Button from "react-bootstrap/Button";
 
 const Movie = (props) => {
   const imageUrl = Config.ApiRequest.request.backgroundBaseUrl;
   const movie = props.state.Movie;
   const { idMovie } = useParams();
+
+  const backButton = () => {
+    props.history.goBack();
+  };
 
   useEffect(() => {
     props.getMovie(idMovie);
@@ -20,23 +23,17 @@ const Movie = (props) => {
   return (
     <div className='Movie'>
       {movie && (
-        <div className='movie-container'>
+        <div className='movie-container animated fast fadeIn'>
           <div
             className='movie-background'
             style={{
               backgroundImage: `url(${imageUrl}/${movie.backdrop_path})`,
             }}>
             <div className='movie-info'>
-              <div className='movie-item'>
-                <Image
-                width={150}
-                  src={
-                    movie.poster_path
-                      ? `${imageUrl}/${movie.backdrop_path}`
-                      : defaultImage
-                  }
-                  thumbnail
-                />
+              <div className='back-button'>
+                <Button variant='danger' size='sm' onClick={backButton}>
+                  {"< Back"}
+                </Button>
               </div>
               <div className='movie-item'>
                 <div className='movie-label'>Title</div>
@@ -48,7 +45,7 @@ const Movie = (props) => {
               </div>
               <div className='movie-item'>
                 <div className='movie-label'>Overview</div>
-                <div className='movie-text'>{movie.overview.slice(0,500)}</div>
+                <div className='movie-text'>{movie.overview.slice(0, 500)}</div>
               </div>
               <div className='movie-item'>
                 <div className='movie-label'>Release date</div>

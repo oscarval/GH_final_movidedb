@@ -35,12 +35,12 @@ const Popularity = (props) => {
           {popularityList.map((movie, index) => (
             <Col
               key={index}
-              xs={12}
+              xs={6}
               sm={6}
               md={4}
               lg={2}
               className='popularity-col'>
-              <Link to='/about'>
+              <Link to={`/movie/${movie.id}`}>
                 <div className='popularity-title'>{movie.title}</div>
                 <Image
                   src={
