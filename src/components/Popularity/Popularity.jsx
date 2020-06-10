@@ -33,13 +33,19 @@ const Popularity = (props) => {
       <Container fluid>
         <Row>
           {popularityList.map((movie, index) => (
-            <Col xs={12} sm={6} md={4} lg={3} className='popularity-col'>
+            <Col
+              key={index}
+              xs={12}
+              sm={6}
+              md={4}
+              lg={2}
+              className='popularity-col'>
               <Link to='/about'>
                 <div className='popularity-title'>{movie.title}</div>
                 <Image
                   src={
-                    movie.backdrop_path
-                      ? `${imageUrl}/${movie.backdrop_path}`
+                    movie.poster_path
+                      ? `${imageUrl}/${movie.poster_path}`
                       : defaultImage
                   }
                   thumbnail

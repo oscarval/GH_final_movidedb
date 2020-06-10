@@ -8,7 +8,8 @@ const Config = {
   ApiRequest: {
     request: {
       baseURL: "https://api.themoviedb.org/3",
-      imageBaseUrl: "https://image.tmdb.org/t/p/w300",
+      imageBaseUrl: "https://image.tmdb.org/t/p/w154",
+      backgroundBaseUrl: "https://image.tmdb.org/t/p/w1280",
       defaultParameters: {
         api_key: "a8d05c5d1d55dc8d596947f775d106f9",
         sort_by: "popularity.desc",
@@ -20,6 +21,7 @@ const Config = {
       SEARCH_SERIES: "SEARCH_SERIES",
       GET_POPULARITY: "GET_POPULARITY",
       GET_BILLBOARD: "GET_BILLBOARD",
+      GET_MOVIE: "GET_MOVIE",
       ERROR_SEARCH: "ERROR_SEARCH",
     },
   },

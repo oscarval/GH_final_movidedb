@@ -112,6 +112,36 @@ const ApiRequest = {
         }
       };
     },
+    getMovie: (idMovie) => {
+      return async (dispatch) => {
+        try {
+          const movieResponse = await axios
+            .get(`${Config.ApiRequest.request.baseURL}/movie/${idMovie}`, {
+              params: {
+                ...Config.ApiRequest.request.defaultParameters,
+              },
+            })
+            .then((res) => res.data);
+          console.log(movieResponse);
+          dispatch({
+            type: Config.ApiRequest.actionsTypes.GET_MOVIE,
+            payload: movieResponse,
+          });
+        } catch (err) {
+          dispatch({
+            type: Config.ApiRequest.actionsTypes.ERROR_SEARCH,
+            payload: [
+              {
+                code: -1,
+                message: err.message,
+              },
+            ],
+          });
+        } finally {
+          console.log("hide loading");
+        }
+      };
+    },
   },
   Series: {
     Search: (paramSearch) => {

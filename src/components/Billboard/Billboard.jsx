@@ -20,7 +20,7 @@ import StarRatings from "react-star-ratings";
 const Billboard = (props) => {
   const imageUrl = Config.ApiRequest.request.imageBaseUrl;
   const billboardList = props.state.Billaboard
-    ? props.state.Billaboard.results.slice(0, 12)
+    ? props.state.Billaboard.results.slice(0, 20)
     : [];
 
   useEffect(() => {
@@ -32,27 +32,39 @@ const Billboard = (props) => {
       <h1>Billboard</h1>
       <Container fluid>
         <Row>
-          {billboardList.map((movie, index) => (
-            <Col xs={12} sm={6} md={4} lg={3} className='billboard-col'>
-              <Link to='/about'>
-                <div className='billboard-title'>{movie.title}</div>
-                <Image
-                  src={
-                    movie.backdrop_path
-                      ? `${imageUrl}/${movie.backdrop_path}`
-                      : defaultImage
-                  }
-                  thumbnail
-                />
-              </Link>
-              <div>
-                <StarRatings
-                  rating={movie.vote_average / 2}
-                  starDimension='20px'
-                />
-              </div>
-            </Col>
-          ))}
+          {billboardList.map((movie, index) => {
+            if (movie.backdrop_path) {
+              return (
+                <Col
+                  xs={12}
+                  sm={6}
+                  md={4}
+                  lg={2}
+                  className='billboard-col'
+                  key={index}>
+                  <Link to={`/movie/${movie.id}`}>
+                    <div className='billboard-title'>{movie.title}</div>
+                    <Image
+                      src={
+                        movie.poster_path
+                          ? `${imageUrl}/${movie.poster_path}`
+                          : defaultImage
+                      }
+                      thumbnail
+                    />
+                  </Link>
+                  <div>
+                    <StarRatings
+                      rating={movie.vote_average / 2}
+                      starDimension='20px'
+                    />
+                  </div>
+                </Col>
+              );
+            } else {
+              return "";
+            }
+          })}
         </Row>
       </Container>
     </div>

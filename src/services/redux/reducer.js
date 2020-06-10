@@ -37,6 +37,11 @@ const reducer = (state = initialErrorsState, { type, payload }) => {
         ...state,
         Popularity: payload,
       };
+    case Config.ApiRequest.actionsTypes.GET_MOVIE:
+      return {
+        ...state,
+        Movie: payload,
+      };
     default:
       return state;
   }

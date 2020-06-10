@@ -9,6 +9,7 @@ import Button from "react-bootstrap/Button";
 import Media from "react-bootstrap/Media";
 import Badge from "react-bootstrap/Badge";
 import defaultImage from "../../../assets/img/default_poster.jpg";
+import { Link } from "react-router-dom";
 
 /**
  * SearchMovies Component
@@ -85,9 +86,11 @@ const SearchMovies = (props) => {
                           {parseFloat(movie.popularity / 10).toFixed(2)}
                         </Badge>
                       </div>
-                      <Button variant='outline-info' size='sm'>
-                        Show more info
-                      </Button>
+                      <Link to={`./movie/${movie.id}`}>
+                        <Button variant='outline-info' size='sm'>
+                          Show more info
+                        </Button>
+                      </Link>
                     </Media.Body>
                   </Media>
                 );
