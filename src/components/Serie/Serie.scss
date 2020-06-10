@@ -1,0 +1,26 @@
+.Serie {
+  .serie-container {
+    .serie-background {
+      min-height: 90vh;
+      background-position: unset;
+    }
+    .serie-info {
+      padding: 20px;
+      min-height: 90vh;
+      width: 45vw;
+      background: linear-gradient(to right, black 65%, transparent 100%);
+      color: white;
+      display: flex;
+      flex-direction: column;
+      .serie-item {
+        padding: 10px;
+        .serie-label {
+          font-weight: bold;
+        }
+        .serie-text {
+          color: #8c8c8c;
+        }
+      }
+    }
+  }
+}

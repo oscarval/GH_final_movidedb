@@ -9,6 +9,8 @@ import Button from "react-bootstrap/Button";
 import Media from "react-bootstrap/Media";
 import Badge from "react-bootstrap/Badge";
 import defaultImage from "../../../assets/img/default_poster.jpg";
+import loadingImage from "../../../assets/img/loading.gif";
+import { Link } from "react-router-dom";
 
 /**
  * SearchSerires Component
@@ -47,6 +49,7 @@ const SearchSeries = (props) => {
               value={values.textSearch}
               onChange={handleChange}
               placeholder='Search a serie'
+              autoComplete='off'
             />
             <Form.Text className='text-muted'>
               Type min 4 characters to search a serie
@@ -56,7 +59,15 @@ const SearchSeries = (props) => {
       </div>
       <div className='search-result'>
         <ul className='list-unstyled'>
-          {props.state.Series &&
+          {props.state.loading && (
+            <div className='loading'>
+              <div>
+                <img src={loadingImage} alt='loading' />
+              </div>
+            </div>
+          )}
+          {!props.state.loading &&
+            props.state.Series &&
             props.state.Series.results.map((serie, index) => {
               if (serie.overview && serie.overview.length > 0) {
                 return (
@@ -84,9 +95,11 @@ const SearchSeries = (props) => {
                           {parseFloat(serie.popularity / 10).toFixed(2)}
                         </Badge>
                       </div>
-                      <Button variant='outline-info' size='sm'>
-                        Show more info
-                      </Button>
+                      <Link to={`./serie/${serie.id}`}>
+                        <Button variant='outline-info' size='sm'>
+                          Show more info
+                        </Button>
+                      </Link>
                     </Media.Body>
                   </Media>
                 );

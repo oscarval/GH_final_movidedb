@@ -10,6 +10,7 @@ import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 import Image from "react-bootstrap/Image";
 import defaultImage from "../../assets/img/default.jpg";
+import loadingImage from "../../assets/img/loading.gif";
 import StarRatings from "react-star-ratings";
 
 /**
@@ -32,15 +33,22 @@ const Popularity = (props) => {
       <h1>10 most popularity</h1>
       <Container fluid>
         <Row>
+          {popularityList.length === 0 && (
+            <div className='loading'>
+              <div>
+                <img src={loadingImage} alt='loading' />
+              </div>
+            </div>
+          )}
           {popularityList.map((movie, index) => (
             <Col
               key={index}
-              xs={12}
+              xs={6}
               sm={6}
               md={4}
               lg={2}
               className='popularity-col'>
-              <Link to='/about'>
+              <Link to={`/movie/${movie.id}`}>
                 <div className='popularity-title'>{movie.title}</div>
                 <Image
                   src={
