@@ -1,0 +1,11 @@
+.Billaboard {
+  .billboard-col {
+    padding: 10px;
+    text-align: center;
+    .billboard-title {
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+  }
+}

@@ -1,0 +1,26 @@
+.Movie {
+  .movie-container {
+    .movie-background {
+      min-height: 90vh;
+      background-position: unset;
+    }
+    .movie-info {
+      padding: 20px;
+      min-height: 90vh;
+      width: 45vw;
+      background: linear-gradient(to right, black 65%, transparent 100%);
+      color: white;
+      display: flex;
+      flex-direction: column;
+      .movie-item {
+        padding: 10px;
+        .movie-label {
+          font-weight: bold;
+        }
+        .movie-text {
+          color: #8c8c8c;
+        }
+      }
+    }
+  }
+}
